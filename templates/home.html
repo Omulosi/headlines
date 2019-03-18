@@ -4,7 +4,47 @@
 	<title>World Headlines</title>
 </head>
 <body>
-	<h1>{{publication}} Headlines</h1>
+	<div id="header">
+		<h1>Headlines</h1>
+		<p>Headlines. Currency. Weather</p>
+		<hr>
+	</div>
+	<h2>Current weather</h2>
+
+	<form>
+		<input type="text" name="city" placeholder="weather search">
+		<input type="submit" name="Submit">
+	</form>
+
+	{% if weather %}
+	<p>City: <b>{{weather.city}}, {{weather.country}}</b></p>
+	<p>{{weather.description}} |  {{weather.temperature}}&#8451;</p>
+	{% else %}
+	<p>Weather information currently not available</p>
+	{% endif %}
+
+	<h2>Currency</h2>
+	<form>
+		from: <select name="currency_from">
+			{% for currency in currencies %}
+				<option value="{{currency}}" 
+				{{ 'selected="selected"' if currency_from==currency}}>
+			{{currency}}</option>
+			{% endfor %}
+		</select>
+		from: <select name="currency_to">
+			{% for currency in currencies %}
+				<option value="{{currency}}" 
+				{{ 'selected="selected"' if currency_to==currency}}>
+			{{currency}}</option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="Submit">
+	</form>
+	1 {{currency_from}} = {{currency_to}} {{rate}}
+
+	<h2>{{publication}} Headlines</h2>
+
 	<form>
 		<input type="text" name="publication" placeholder="search">
 		<input type="submit" name="Submit">
