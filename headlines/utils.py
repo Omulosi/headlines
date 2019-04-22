@@ -1,6 +1,6 @@
 """
-utils.py
-~~~~~~~~~
+headlines.utils.py
+=====================
 
 This module contains helper functions and constants used in the view logic
 """
@@ -9,18 +9,17 @@ import json
 import os
 import requests
 import feedparser
+from flask import request, current_app
 
-API_KEY = os.getenv('API_KEY')
-APP_ID = os.getenv('APP_ID')
 
-WEATHER_URL = ("http://api.openweathermap.org/data/2.5/weather?q={query}&units=metric""&appid={id}")
+WEATHER_URL = ("http://api.openweathermap.org/data/2.5/weather?q={query}&units=metric&appid={id}")
 CURRENCY_URL = "https://openexchangerates.org//api/latest.json?app_id={id}"
 
 DEFAULTS = {
         'publication': 'bbc',
-        'city': 'London,UK',
-        'currency_from':'GBP',
-	'currency_to':'USD'
+        'city': 'Nairobi,KE',
+        'currency_from':'KES',
+	    'currency_to':'USD'
         }
 
 RSS_FEEDS = {'bbc':'http://feeds.bbci.co.uk/news/rss.xml',
@@ -46,7 +45,7 @@ def get_weather(query='London,UK'):
     :param query: search query to be passed to the API call
     :return: A dictionary with weather information
     """
-    url = WEATHER_URL.format(query=query, id=API_KEY)
+    url = WEATHER_URL.format(query=query, id=current_app.config['API_KEY'])
     weather = {}
     data = download(url)
     try:
@@ -94,8 +93,7 @@ def download(url):
     return resp
 
 def get_rates(frm, to):
-    url = CURRENCY_URL.format(id=APP_ID)
-    print(url)
+    url = CURRENCY_URL.format(id=current_app.config['APP_ID'])
     all_currency = download(url) 
     try:
         data = all_currency.json()
@@ -105,4 +103,12 @@ def get_rates(frm, to):
     frm_rate = data.get(frm.upper())
     to_rate = data.get(to.upper())
     return to_rate / frm_rate, data.keys()
+
+def get_value_with_fallback(key):
+    if request.args.get(key):
+        return request.args.get(key)
+    if request.cookies.get(key):
+        return request.cookies.get(key)
+    return DEFAULTS[key]
+
 

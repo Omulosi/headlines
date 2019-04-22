@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+
+    <!--Grid row-->
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-3">
+
+        	<h2 class="my-5">Current weather</h2>
+				<form class="mb-3">
+					<div class="form-group-row">
+					<input type="text" name="city" placeholder="search city" class="form-control">
+					<button class="btn btn-info" type="submit">Submit</button>
+					</div>
+				</form>
+			
+
+
+			{% if weather %}
+			<!-- Card -->
+			<div class="card weather-card mb-3">
+
+			  <!-- Card content -->
+			  <div class="card-body pb-3">
+
+			    <!-- Title -->
+			    <h4 class="card-title font-weight-bold">{{weather.city}}, {{weather.country}}</h4>
+			    <!-- Text -->
+			    <p class="card-text">{{weather.description}}</p>
+			    <div class="d-flex justify-content-between">
+			      <p class="display-4">{{weather.temperature}}
+			      	<span class="">&#8451;</span></p>
+			      <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
+			    </div>
+
+			  </div>
+
+			</div>
+			<!-- Card -->
+			{% endif %}
+
+
+			<!-- Card -->
+			<div class="card chart-card">
+
+			  <!-- Card content -->
+			  <div class="card-body pb-0">
+
+			    <!-- Title -->
+			    <h4 class="card-title font-weight-bold">Currency</h4>
+			    <!-- Text -->
+			    <p class="card-text mb-4">1 {{currency_from}} = {{currency_to}} {{rate | round(2)}}</p>
+			    <div class="d-flex justify-content-between">
+			     <form>
+					<select name="currency_from" class="custom-select" multiple searchable="Select currency..">
+						<option value="" disabled selected>From</option>
+						{% for currency in currencies %}
+							<option value="{{currency}}" 
+							{{ 'selected="selected"' if currency_from==currency}}>
+						{{currency}}</option>
+						{% endfor %}
+					</select>
+					<select name="currency_to" class="custom-select" multiple searchable="Select currency..">
+						<option value="" disabled selected>To</option>
+						{% for currency in currencies %}
+							<option value="{{currency}}" 
+							{{ 'selected="selected"' if currency_to==currency}}>
+						{{currency}}</option>
+						{% endfor %}
+					</select>
+					<button class="btn btn-save btn-sm btn-info" type="submit">Submit</button>
+				</form>
+
+			    </div>
+
+			  </div>
+
+			</div>
+			<!-- Card -->
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-9">
+
+			<h2 class="font-weight-bold text-capitalize text-center my-5">{{publication | title}} Headlines</h2>
+
+			<form class="mb-3">
+				<input type="text" name="publication" placeholder="search publication" class="form-control">
+				<button class="btn btn-info" type="submit">Submit</button>
+			</form>
+
+
+
+
+		{% for article in articles %}
+
+		<!-- Card -->
+		<div class="card card-cascade wider mb-3 p-3">
+
+		  <!-- Card image -->
+		  <div class="view view-cascade gradient-card-header white-gradient">
+
+		    <!-- Title -->
+		    <h4 class="card-header-title mb-3"><b>{{ article.title }}</b></h4>
+		    <!-- Text -->
+		    <p class="mb-0"><i class="fas fa-calendar mr-2"></i>{{ article.published }}</p>
+
+		  </div>
+
+		  <!-- Card content -->
+		  <div class="card-body card-body-cascade text-center">
+
+		    <!-- Text -->
+		    <p class="card-text">{{ article.summary }}</p>
+		    <!-- Link -->
+		    <a href="#!" class="orange-text d-flex flex-row-reverse p-2">
+		      <h5 class="waves-effect waves-light"><a href="{{article.link}}">Read more</a><i class="fas fa-angle-double-right ml-2"></i></h5>
+		    </a>
+
+		  </div>
+		  <!-- Card content -->
+
+		</div>
+		<!-- Card -->
+
+		{% endfor %}
+
+
+        </div>
+        <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+</div>
+<!--Main container-->
+
+{% endblock %}
+
+	
+	
+
+	

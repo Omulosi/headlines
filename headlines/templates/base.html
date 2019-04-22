@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Headlines</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{{url_for('static', filename='css/mdb.min.css')}}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Start your project here-->
+    <!--Main Navigation-->
+    <header>
+      <nav class="navbar navbar-dark default-color justify-content-between">
+        <a class="navbar-brand font-weight-bold" href="#">Headlines</a>
+        <form class="form-inline my-1">
+          <div class="md-form form-sm my-0">
+            <input class="form-control form-control-sm mr-sm-2 mb-0" type="text" placeholder="Search"
+              aria-label="Search publication" name="publication">
+          </div>
+          <button class="btn btn-outline-white btn-sm my-0" type="submit">Search</button>
+        </form>
+      </nav>
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main>
+
+      {% block content %}{% endblock %}
+
+    </main>
+    <!--Main layout-->
+
+   <!-- Footer -->
+    <footer class="page-footer font-small default-color">
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/">Headlines</a>
+      </div>
+      <!-- Copyright -->
+
+    </footer>
+<!-- Footer -->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>
